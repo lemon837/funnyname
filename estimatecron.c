@@ -14,6 +14,8 @@
 #define MAX_LINES 100
 #define MAX_LEN 1000
 
+int monthlength = 0;
+
 void readfile1 (char filename[]) {
 	char data[MAX_LINES][MAX_LEN];
 	FILE* file;
@@ -41,21 +43,26 @@ void readfile1 (char filename[]) {
 
 
 
+
+
+
+
 int main (int argc, char* argv[])
 {
         if (argc !=4) {
                 fprintf(stderr, "Usage: ./estimatecron month crontab-file estimates-file\n");
                 exit(EXIT_FAILURE);
         }
-	if ((strcmp (argv[2], "jan")) == 0) {
+	if ((strcmp (argv[1], "jan")) == 0) {
 		printf ("I'm Jan");
 	}
 			
         else {
+                readfile1(argv[2]);
                 readfile1(argv[3]);
-                readfile1(argv[4]);
                 exit (EXIT_SUCCESS);
         }
 
 }
+
 
