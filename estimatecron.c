@@ -9,12 +9,11 @@
 #include <inttypes.h>
 #include <sys/time.h>
 
-#include <stdio.h>
-
 #define MAX_LINES 100
 #define MAX_LEN 1000
 
 int monthlength = 0;
+char monthname[] = {'m', 't', 'h'}; 
 
 void readfile1 (char filename[]) {
 	char data[MAX_LINES][MAX_LEN];
@@ -35,14 +34,58 @@ void readfile1 (char filename[]) {
 	}
 
 	fclose(file);
-
 	for (int i = 0; i < line; i++) {
 		printf("%s", data[i]);
 	}
 }
 
 
-
+void monthset (char monthname[]) {
+	//prints the first 3 characters from monthname array, to test if monthname is being set correctly. Need precision indicator since not null terminated.
+	//printf ("%.3s\n", monthname);
+	if (strcmp (monthname, "jan") == 0) {
+		monthlength = 31;
+	}
+	else if (strcmp (monthname, "feb") == 0) {
+		monthlength = 28;
+	}
+	else if (strcmp (monthname, "mar") == 0) {
+		monthlength = 31;
+	}
+	else if (strcmp (monthname, "apr") == 0) {
+		monthlength = 30;
+	}
+	else if (strcmp (monthname, "may") == 0) {
+		monthlength = 31;
+	}
+	else if (strcmp (monthname, "jun") == 0) {
+		monthlength = 30;
+	}
+	else if (strcmp (monthname, "jul") == 0) {
+		monthlength = 31;
+	}
+	else if (strcmp (monthname, "aug") == 0) {
+		monthlength = 31;
+	}
+	else if (strcmp (monthname, "sep") == 0) {
+		monthlength = 30;
+	}
+	else if (strcmp (monthname, "oct") == 0) {
+		monthlength = 31;
+	}
+	else if (strcmp (monthname, "nov") == 0) {
+		monthlength = 30;
+	}
+	else if (strcmp (monthname, "dec") == 0) {
+		monthlength = 31;
+	}
+	else {
+		printf("Error, invalid month");
+		exit (EXIT_FAILURE);
+	}
+	//to test if monthlength is being set correctly, currently working. Prints to terminal
+	//printf( "%d", monthlength);
+}
 
 
 
@@ -53,16 +96,13 @@ int main (int argc, char* argv[])
                 fprintf(stderr, "Usage: ./estimatecron month crontab-file estimates-file\n");
                 exit(EXIT_FAILURE);
         }
-	if ((strcmp (argv[1], "jan")) == 0) {
-		printf ("I'm Jan");
-	}
-			
-        else {
-                readfile1(argv[2]);
-                readfile1(argv[3]);
-                exit (EXIT_SUCCESS);
-        }
-
+//copies argv[1] to array global array monthname, allowing it to pass to monthset
+	strcpy(monthname, argv[1]);
+	
+	readfile1(argv[2]);
+	readfile1(argv[3]);
+	monthset(monthname);
+        exit (EXIT_SUCCESS);
 }
 
 
