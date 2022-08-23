@@ -14,6 +14,7 @@
 
 int monthlength = 0;
 char monthname[] = {'m', 't', 'h'}; 
+int linelength = 0;
 
 void readfile1 (char filename[]) {
 	char data[MAX_LINES][MAX_LEN];
@@ -35,7 +36,16 @@ void readfile1 (char filename[]) {
 
 	fclose(file);
 	for (int i = 0; i < line; i++) {
-		printf("%s", data[i]);
+		//sets j's conditional every i's iteration
+		linelength = sizeof(data[0]);
+		for (int j = 0; j < linelength; j++) {
+		//if j=0, start of line, convert [i][0] to string, strcmp againt "#", if true, break, if not, progress to print all	
+		if ( data[i][0] == '#')  {
+		break;
+		}
+		
+		printf("%c", data[i][j]);
+		}
 	}
 }
 
