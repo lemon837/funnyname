@@ -1,7 +1,3 @@
-//CITS2002 Project 1 2022
-//Student1: 22249533 HART JUSTIN
-//Student2: 22976862 FREDERICK LEMAN
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -72,7 +68,8 @@ void readfile1 (char filename[]) {
 
 	fclose(fp);
 	
-	int minute = 0;
+	//int minute = 0;
+	char minute[2];
 	int counter = 0;
 	int hour = 0;
 	int daymon = 0;
@@ -89,7 +86,8 @@ void readfile1 (char filename[]) {
 				break;
 			}
 			if (counter == 0) {
-				minute = command1[i][j];
+				//minute = command1[i][j];
+				minute[j] = command1[i][j];			
 			}
 			if (counter == 1) {
 				hour = command1[i][j];
@@ -108,7 +106,7 @@ void readfile1 (char filename[]) {
 		}
 	
 	}
-	printf("Minute: %d", minute);
+	printf("Minute: %s", minute);
 	printf("Hour: %d", hour);
 	printf("Day of the Month: %d", daymon);
 	printf("Month %d", month);
