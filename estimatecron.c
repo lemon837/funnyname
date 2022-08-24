@@ -1,3 +1,7 @@
+//CITS2002 Project 1 2022
+//Student1: 22249533 HART JUSTIN
+//Student2: 22976862 FREDERICK LEMAN
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -10,7 +14,7 @@
 #include <sys/time.h>
 
 #define MAX_LINES 100
-#define MAX_LEN 1000
+#define MAX_LEN 101
 
 int monthlength = 0;
 char monthname[] = {'m', 't', 'h'}; 
@@ -25,28 +29,66 @@ void readfile1 (char filename[]) {
 		printf("Error opening file");
 		exit (EXIT_FAILURE);
 	}
-
+//TODO, "trimmed.txt" spacing behaviour for subsequent lines based on MAX_LEN. Not an issue when using cat. Unsure if need to fix.
 	int line = 0;
-
 	while (!feof(file) && !ferror(file)) {
 		if (fgets(data[line], MAX_LEN, file) != NULL) {
 			line++;
 		}
 	}
-
 	fclose(file);
+
+
+	FILE *fp;
+	fp = fopen ("trimmed.txt", "w");
 	for (int i = 0; i < line; i++) {
 		//sets j's conditional every i's iteration
 		linelength = sizeof(data[0]);
 		for (int j = 0; j < linelength; j++) {
 		//if j=0, start of line, convert [i][0] to string, strcmp againt "#", if true, break, if not, progress to print all	
-		if ( data[i][0] == '#')  {
-		break;
-		}
-		
-		printf("%c", data[i][j]);
+			if ( data[i][0] == '#')  {
+			//if the line starts with "#", skip printing that line
+			break;
+			}
+			//prints trimmed output to "trimmed.txt"	
+			fputc(data[i][j], fp);			
 		}
 	}
+	fclose(fp);
+	
+	//reopen trimmed.txt for reading
+	fp = fopen ("trimmed.txt", "r");
+	char command1[MAX_LINES][MAX_LEN];
+	if (fp == NULL) {
+		printf("Error opening file");
+		exit (EXIT_FAILURE);
+	}
+	int line1 = 0;	
+	while (!feof(fp) && !ferror(fp)) {
+		if (fgets(command1[line1], MAX_LEN, fp) != NULL){
+			line1++;
+		}
+	}
+	for (int i = 0; i < line1; i++){
+		linelength = sizeof(command1[0]);
+		for (int j = 0; j < linelength; j++) {
+			printf("%c", command1[i][j]);
+		}
+
+	}
+	fclose(fp);
+	
+	
+	
+	//prints contents of "trimmed.txt" for testing purposes, delete later
+	//if (fp) {
+	//	while ((c = getc(fp)) != EOF)
+	//		putchar(c);
+	//scanf? fscanf?
+	//	}	
+	//fclose(fp);
+	//delete temp file after use
+	//remove("trimmed.txt")
 }
 
 
@@ -110,7 +152,8 @@ int main (int argc, char* argv[])
 	strcpy(monthname, argv[1]);
 	
 	readfile1(argv[2]);
-	readfile1(argv[3]);
+	//TODO change me to readfile2 when readfile2's function written
+	//readfile1(argv[3]);
 	monthset(monthname);
         exit (EXIT_SUCCESS);
 }
