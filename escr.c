@@ -20,7 +20,7 @@ void readfile1 (char filename[]) {
 	char data[MAX_LINES][MAX_LEN];
 	FILE* file;
 
-	file = fopen("crontab-file.txt", "r");
+	file = fopen(filename, "r");
 	if (file == NULL) {
 		printf("Error opening file");
 		exit (EXIT_FAILURE);
@@ -71,38 +71,35 @@ void readfile1 (char filename[]) {
 	//int minute = 0;
 	char minute[2];
 	int counter = 0;
-	char hour[100];
-	int daymon = 0;
-	int month = 0;
-	int dayofweek = 0;
+	char hour[2];
+	char daymon[2];
+	char month[2];
+	char dayofweek[2];
 	for (int i = 0; i < 1; i++){
 		linelength = sizeof(command1[0]);
 		counter = 0;
 		for (int j = 0; j < linelength; j++) {
-			if ((command1[i][j] == ' ') && (command1[i-1][j] != ' ')) {
-				counter++;		
-			}
-			else if (counter == 0) {
+			//if ((command1[i][j] == ' ') && (command1[i-1][j] != ' ')) {
+			//	counter++;		
+			//}
+			if (counter == 0) {
 				//minute = command1[i][j];
 				minute[j] = command1[i][j];			
 			}
-			else if (counter == 1) {
+			if (counter == 1) {
 				hour[0] = command1[i][j];
-				//if (strcmp(hour, "") == 0) {
-				//	hour[0] = command1[i][j];
-				//}
-				//else if (strcmp(hour, "") == 0) {
-				//	hour[1] = command1[i][j];
-				//}
 			}
-			else if (counter == 2) {
-				daymon = command1[i][j];
+			if (counter == 2) {
+				daymon[0] = command1[i][j];
 			}
-			else if (counter == 3) {
-				month = command1[i][j];
+			if (counter == 3) {
+				month[0] = command1[i][j];
 			}
-			else if (counter == 4) {
-				dayofweek = command1[i][j];
+			if (counter == 4) {
+				dayofweek[0] = command1[i][j];
+			}
+			if ((command1[i][j] == ' ') && (command1[i-1][j] != ' ')){
+				counter++;
 			}
 		
 				
@@ -111,9 +108,9 @@ void readfile1 (char filename[]) {
 	}
 	printf("Minute: %s", minute);
 	printf("Hour: %s", hour);
-	printf("Day of the Month: %d", daymon);
-	printf("Month %d", month);
-	printf("Day of the week %d", dayofweek);
+	printf("Day of the Month: %s", daymon);
+	printf("Month %s", month);
+	printf("Day of the week %s", dayofweek);
 	
 	
 	
