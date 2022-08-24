@@ -70,32 +70,50 @@ void readfile1 (char filename[]) {
 		}
 	}
 
+	fclose(fp);
+	
 	int minute = 0;
 	int counter = 0;
 	int hour = 0;
+	int daymon = 0;
+	int month = 0;
+	int dayofweek = 0;
 	for (int i = 0; i < line1; i++){
 		linelength = sizeof(command1[0]);
 		for (int j = 0; j < linelength; j++) {
-			if ((command1[i][0] == ' ') && (command1[i-1][0] != ' ')) {
+			if ((command1[i][j] == ' ') && (command1[i-1][j] != ' ')) {
 				counter++;		
 				break;
 			}
-			if ((command1[i][0] == ' ') && (command1[i-1][0] == ' ')) {
+			if ((command1[i][j] == ' ') && (command1[i-1][j] == ' ')) {
 				break;
 			}
-			if (counter == 1) {
+			if (counter == 0) {
 				minute = command1[i][j];
 			}
-			if (counter == 2) {
+			if (counter == 1) {
 				hour = command1[i][j];
 			}
+			if (counter == 2) {
+				daymon = command1[i][j];
+			}
+			if (counter == 3) {
+				month = command1[i][j];
+			}
+			if (counter == 4) {
+				dayofweek = command1[i][j];
+			}
+		
 				
 		}
 	
 	}
-	printf("%d", minute);
-	printf("%d", hour);
-	fclose(fp);
+	printf("Minute: %d", minute);
+	printf("Hour: %d", hour);
+	printf("Day of the Month: %d", daymon);
+	printf("Month %d", month);
+	printf("Day of the week %d", dayofweek);
+	
 	
 	
 	
