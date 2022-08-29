@@ -114,8 +114,11 @@ void readfile1 (char filename[]) {
 	
 }
 
-void readfile2(FILE *crontab_file, FILE *estimates_file)
+void readfile2(char filename[])
 {
+	FILE* file;
+	file = fopen("crontab_file", "r");
+	
 	int i = 0;
 	char line[100];
 
@@ -128,7 +131,7 @@ void readfile2(FILE *crontab_file, FILE *estimates_file)
 		char command[40+1];
 	}crontabs[40];
 	
-	while(fgets(line, sizeof line, crontab_file) != NULL) {
+	while(fgets(line, sizeof line, file) != NULL) {
 		char crontab_minute[2];
 		char crontab_hour[2];
 		char crontab_date[2];
@@ -148,8 +151,8 @@ void readfile2(FILE *crontab_file, FILE *estimates_file)
 		}
 	}
 	
-	//print a couple of the crontabs for a sample to check if it works
-
+	printf("%s", crontabs[0].minute); 
+	fclose(file);
 }
 
 void monthset (char monthname[]) {
@@ -208,13 +211,14 @@ int main (int argc, char* argv[])
                 fprintf(stderr, "Usage: ./estimatecron month crontab-file estimates-file\n");
                 exit(EXIT_FAILURE);
         }
-//copies argv[1] to array global array monthname, allowing it to pass to monthset
+	//copies argv[1] to array global array monthname, allowing it to pass to monthset
 	strcpy(monthname, argv[1]);
-	
-	readfile1(argv[2]);
+	//readfile1(argv[2]);
 	//TODO change me to readfile2 when readfile2's function written
 	//readfile1(argv[3]);
 	monthset(monthname);
+	readfile2(argv[2]);
+	
         exit (EXIT_SUCCESS);
 }
 
