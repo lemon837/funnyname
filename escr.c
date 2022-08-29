@@ -34,9 +34,9 @@ void readfile1 (char filename[]) {
 	}
 	fclose(file);
 
-
+//Creation of temp file trimmed.txt to store crontab once "#" is removed
 	FILE *fp;
-	fp = fopen ("trimmed.txt", "w");
+	fp = fopen ("trimmed.txt", "w+");
 	for (int i = 0; i < line; i++) {
 		//sets j's conditional every i's iteration
 		linelength = sizeof(data[0]);
@@ -51,9 +51,81 @@ void readfile1 (char filename[]) {
 		}
 	}
 	fclose(fp);
+
 	
-	//reopen trimmed.txt for reading
+	//reopen trimmed.txt for reading, fscanf to pass values
 	fp = fopen ("trimmed.txt", "r");
+	char minute[5], hour[5], day[5], month[5], dow[5], cmdname[200];
+	fscanf(fp, "%s %s %s %s %s %s", minute, hour, day, month, dow, cmdname);
+	printf("Minute |%s|\n", minute);
+	printf("Hour |%s|\n", hour);
+	printf("Day |%s|\n", day);
+	printf("Month |%s|\n", month);
+	printf("Day of the Week |%s|\n", dow);
+	printf("Command name |%s|\n", cmdname);
+	fclose(fp);
+
+
+//checking of validity here
+
+//reset arrays to hold "null", so can check if empty?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//int i = 0;	
+//char line2[100];
+
+//	struct crontabs{
+//	char mi
+//	}
+//	FILE* fp2;
+//	fp2 = fopen("trimmed.txt", "r");
+
+//	struct crontabs{
+//		char minute[2];
+//		char hour[2];
+//		char date [2];
+//		char month [2];
+//		char day[2];
+//		char command[200+1];
+//	}
+//	crontabs[40];	
+
+//	while(fgets(line2, sizeof line2, fp2) != NULL) {
+//	char crontab_minute[2], crontab_hour[2], crontab_date[2], crontab_month[2], crontab_day[2], crontab_command[200+1];
+//	}
+//	sscanf(line2, "%s %s %s %s %s %s", crontab_minute, crontab_hour, crontab_date, crontab_month, crontab_day, crontab_command);
+//	strcpy(crontabs[i].minute, crontab_minute);
+//	i++;
+//
+
+//	fclose(fp);
+	
+	
+
+
+
+
+
+
 	char command1[MAX_LINES][MAX_LEN];
 	if (fp == NULL) {
 		printf("Error opening file");
@@ -65,53 +137,7 @@ void readfile1 (char filename[]) {
 			line1++;
 		}
 	}
-
 	fclose(fp);
-	
-	//int minute = 0;
-	char minute[2];
-	int counter = 0;
-	char hour[2];
-	char daymon[2];
-	char month[2];
-	char dayofweek[2];
-	for (int i = 0; i < 1; i++){
-		linelength = sizeof(command1[0]);
-		counter = 0;
-		for (int j = 0; j < linelength; j++) {
-			//if ((command1[i][j] == ' ') && (command1[i-1][j] != ' ')) {
-			//	counter++;		
-			//}
-			if (counter == 0) {
-				//minute = command1[i][j];
-				minute[j] = command1[i][j];			
-			}
-			if (counter == 1) {
-				hour[0] = command1[i][j];
-			}
-			if (counter == 2) {
-				daymon[0] = command1[i][j];
-			}
-			if (counter == 3) {
-				month[0] = command1[i][j];
-			}
-			if (counter == 4) {
-				dayofweek[0] = command1[i][j];
-			}
-			if ((command1[i][j] == ' ') && (command1[i-1][j] != ' ')){
-				counter++;
-			}
-		
-				
-		}
-	
-	}
-	printf("Minute: %s", minute);
-	printf("Hour: %s", hour);
-	printf("Day of the Month: %s", daymon);
-	printf("Month %s", month);
-	printf("Day of the week %s", dayofweek);
-	
 	
 	
 	
